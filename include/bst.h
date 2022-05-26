@@ -22,14 +22,14 @@ class BST {
  private:
     Node *root;
     Node *addNode(Node *, const T&);
-    int depTr(Node *);
+    int depthTr(Node *);
     int searchNode(Node *, const T&);
     void delTree(Node *);
  public:
     BST();
     ~BST();
     void add(const T&);
-    int dep();
+    int depth();
     int search(T);
 };
 template <typename T>
@@ -71,13 +71,13 @@ void BST <T>::delTree(Node *root) {
   }
 }
 template <typename T>
-int BST<T>::depTr(Node *root) {
+int BST<T>::depthTr(Node *root) {
   BST<std::string> tree;
   if (nullptr == root) {
     return 0;
   } else {
-      int l = depTr(root->left);
-      int r = depTr(root->right);
+      int l = depthTr(root->left);
+      int r = depthTr(root->right);
       if (l > r) {
         return ++l;
       } else {
@@ -86,8 +86,8 @@ int BST<T>::depTr(Node *root) {
   }
 }
 template <typename T>
-int BST<T>::dep() {
-  return depTr(root);
+int BST<T>::depth() {
+  return depthTr(root);
 }
 template <typename T>
 int BST<T>::searchNode(Node *root, const T& val) {
