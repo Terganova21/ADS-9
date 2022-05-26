@@ -3,20 +3,17 @@
 #define INCLUDE_BST_H_
 
 #include <iostream>
-using namespace std;
 
 template<typename T>
-class BST
-{
+class BST {
 public:
-	struct Node
-	{
+	struct Node {
 		T value;
 		int count;
 		Node* left;
 		Node* right;
 	};
-private:
+	private:
 	Node* root;
 	Node* addNode(Node*, T);
 	void  printTree(Node*)const;
@@ -24,7 +21,7 @@ private:
 	int   searchNode(Node*, T);
 	void  delTree(Node*);
 	Node* delNode(Node*, int);
-	Node* copyNode(Node*,Node*);
+	Node* copyNode(Node*, Node*);
 public:
 	BST();
 	~BST();
@@ -50,9 +47,8 @@ BST<T>::BST(const BST<T>&  temp) {
 
 
 template<typename T>
-typename BST<T>::Node* BST<T>::copyNode(Node* root,Node* temp) {
-	if(!(temp==nullptr))
-	{
+typename BST<T>::Node* BST<T>::copyNode(Node* root, Node* temp) {
+	if(!(temp==nullptr)) {
 	root = new Node;
 	root->value = temp->value;
 	root->count = temp->count;
@@ -68,8 +64,7 @@ template<typename T>
 BST<T>::BST() :root(nullptr) {}
 
 template<typename T>
-BST<T>::~BST()
-{
+BST<T>::~BST() {
 	if (root)
 		delTree(root);
 	root = nullptr;
@@ -101,8 +96,7 @@ void BST<T>::add(T value) {
 
 template<typename T>
 void BST<T>::printTree(Node* root)const {
-	if (root == nullptr)
-	{
+	if (root == nullptr) {
 		return;
 	}
 	printTree(root->left);
@@ -136,8 +130,7 @@ int BST<T>::depth() {
 }
 
 template<typename T>
-int BST<T>::searchNode(Node* root, T value)
-{
+int BST<T>::searchNode(Node* root, T value) {
 	if (root == nullptr)
 		return 0;
 	else if (root->value > value)
@@ -149,18 +142,15 @@ int BST<T>::searchNode(Node* root, T value)
 }
 
 template<typename T>
-int BST<T>::search(T value)
-{
+int BST<T>::search(T value) {
 	return searchNode(root, value);
 }
 
 template<typename T>
-void  BST<T>::delTree(Node* root)
-{
+void  BST<T>::delTree(Node* root) {
 	if (root == nullptr)
 		return;
-	else
-	{
+	else {
 		delTree(root->left);
 		delTree(root->right);
 		delete root;
@@ -169,17 +159,14 @@ void  BST<T>::delTree(Node* root)
 }
 
 template<typename T>
-void BST<T>::clear()
-{
-	if (root)
-	{
+void BST<T>::clear() {
+	if (root) {
 		delTree(root);
 		root = nullptr;
 	}
 }
 template<typename T>
-typename BST<T>::Node* BST<T>::delNode(typename BST<T>::Node* root, int value)
-{
+typename BST<T>::Node* BST<T>::delNode(typename BST<T>::Node* root, int value) {
 	Node* p, * v;
 	if (root == nullptr)
 		return root;
@@ -187,18 +174,15 @@ typename BST<T>::Node* BST<T>::delNode(typename BST<T>::Node* root, int value)
 		root->left = delNode(root->left, value);
 	else if (value > root->value)
 		root->right = delNode(root->right, value);
-	else
-	{
+	else {
 		p = root;
 		if (root->right == nullptr)
 			root = root->left;
 		else if (root->left == nullptr)
 			root = root->right;
-		else
-		{
+		else {
 			v = root->left;
-			if (v->right)
-			{
+			if (v->right) {
 				while (v->right->right)
 					v = v->right;
 				root->value = v->right->value;
@@ -206,8 +190,7 @@ typename BST<T>::Node* BST<T>::delNode(typename BST<T>::Node* root, int value)
 				p = v->right;
 				v->right = v->right->left;
 			}
-			else
-			{
+			else {
 				root->value = v->value;
 				root->count = v->count;
 				p = v;
@@ -220,8 +203,7 @@ typename BST<T>::Node* BST<T>::delNode(typename BST<T>::Node* root, int value)
 }
 
 template<typename T>
-void BST<T>::remove(int value)
-{
+void BST<T>::remove(int value) {
 	if (root)
 		root = delNode(root, value);
 }
